@@ -1,0 +1,7 @@
+.bundle
+bundle
+
+debian/aptly-simple.debhelper.log
+debian/aptly-simple.substvars
+debian/aptly-simple/*
+debian/files

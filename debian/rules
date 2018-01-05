@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+
+bundle_path = bundle
+
+pkg_name = $(shell head -n1 debian/changelog |cut -d' ' -f1)
+
+ruby_base = /usr/lib/$(pkg_name)
+ruby_dest = debian/$(pkg_name)$(ruby_base)
+
+bin_base = /usr/bin
+bin_dest = debian/$(pkg_name)$(bin_base)
+
+export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+clean:
+	rm -rf .bundle $(bundle_path)
+	dh_clean
+
+override_dh_auto_build:
+	bundler install --deployment --standalone --path=$(bundle_path)
+
+override_dh_auto_install:
+	dh_installdirs $(bin_base)
+	sed -r -e "/^ENV\['BUNDLE_GEMFILE'\] = /d" \
+	       -e "s,^(require ')(bundler/setup'),\1$(ruby_base)/\2," \
+	       aptly-simple-push >$(bin_dest)/aptly-simple-push
+	chmod 755 $(bin_dest)/aptly-simple-push
+
+	dh_installdirs $(ruby_base)
+	mv $(bundle_path)/* $(ruby_dest)
+
+override_dh_installdocs:
+	@true
+
+override_dh_installchangelogs:
+	@true
+
+override_dh_auto_test:
+	@true

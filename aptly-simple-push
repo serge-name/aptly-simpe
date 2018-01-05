@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# coding: utf-8
+
+ENV['BUNDLE_GEMFILE'] = File.join(File.dirname(__FILE__), 'Gemfile')
+require 'bundler/setup'
+
+require 'aptly'
+
+def published_list(repo_name)
+  Aptly::PublishedRepository.list.select { |published_repo|
+    published_repo.Sources.map { |s| s.Name }.include?(repo_name)
+  }
+end
+
+def published_update(repo_name)
+  published_list(repo_name).each do |published_repo|
+    published_repo.update!
+  end
+end
+
+begin
+  aptly_url = URI.parse(ENV['APTLY_URL'])
+rescue URI::InvalidURIError
+  STDERR.puts("Unable to parse APTLY_URL environment variable: '#{ENV['APTLY_URL']}'")
+  exit(1)
+end
+
+aptly_repo = ENV['APTLY_REPO']
+if aptly_repo.to_s.empty?
+  STDERR.puts("APTLY_REPO environment variable must be defined")
+  exit(1)
+end
+
+Aptly.configure do |config|
+  config.uri = URI::HTTP.build(host: aptly_url.host, port: aptly_url.port)
+end
+
+repo = Aptly::Repository.get(aptly_repo)
+repo.upload(ARGV)
+published_update(aptly_repo)

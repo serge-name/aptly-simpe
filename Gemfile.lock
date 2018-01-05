@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aptly-api (0.8.0)
+      excon (~> 0.54)
+      faraday (~> 0.9)
+    excon (0.60.0)
+    faraday (0.13.1)
+      multipart-post (>= 1.2, < 3)
+    multipart-post (2.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aptly-api
+
+BUNDLED WITH
+   1.13.6

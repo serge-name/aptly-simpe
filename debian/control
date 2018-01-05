@@ -1,0 +1,13 @@
+Source: aptly-simple
+Section: utils
+Priority: optional
+Maintainer: "Serge Pokhodyaev" <snp@z9.ru>
+Build-Depends: debhelper (>=9), ruby, bundler
+Standards-Version: 3.9.8
+Homepage: https://github.com/serge-name/aptly-simple
+
+Package: aptly-simple
+Architecture: any
+Depends: ruby, bundler, ${misc:Depends}, ${shlibs:Depends}
+Description: Simplified Aptly API client
+  Simplified Aptly API client
