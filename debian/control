@@ -7,7 +7,7 @@ Standards-Version: 3.9.8
 Homepage: https://github.com/serge-name/aptly-simple
 
 Package: aptly-simple
-Architecture: any
-Depends: ruby, bundler, ${misc:Depends}, ${shlibs:Depends}
+Architecture: all
+Depends: ruby, ${misc:Depends}
 Description: Simplified Aptly API client
   Simplified Aptly API client
