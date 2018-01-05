@@ -1,3 +1,10 @@
+aptly-simple (2) stretch; urgency=low
+
+  * fix arch and depends
+  * Create README.md
+
+ -- Serge Pokhodyaev <snp@z9.ru>  Fri, 05 Jan 2018 22:28:20 +0300
+
 aptly-simple (1) stretch; urgency=low
 
   * initial revision
