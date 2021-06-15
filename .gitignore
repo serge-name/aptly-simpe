@@ -1,4 +1,5 @@
-.bundle
+/.bundle/
+/vendor/
 bundle
 
 debian/aptly-simple.debhelper.log
